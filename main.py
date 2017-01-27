@@ -20,11 +20,11 @@ import cgi
 
 def build_page(textarea_content):
     rot_label= "<label>Rotate by: </label>"
-    rotation_input = "<input type='number' name='rotation' style='margin-left: 30px;'>"
-    message_label = "<label>Type a message</label>"
+    rotation_input = "<input type='number' name='rotation' style='margin-left: 36px;'>"
+    message_label = "<label style='padding-right: 5px;'>Type a message:</label>"
     textarea = "<textarea name='message'>" + textarea_content + "</textarea>"
     submit = "<input type='submit'/>"
-    form = "<form method='post'>" + rot_label + rotation_input + "<br><br><br>" + message_label + textarea +  "<br>" + submit + "</form>"
+    form = "<form method='post'>" + rot_label + rotation_input + "<br><br><br>" + message_label + textarea +  "<br><br><br>" + submit + "</form>"
     header = "<h2>Web Caesar</h2>"
     return header+form
 
@@ -37,7 +37,7 @@ class MainHandler(webapp2.RequestHandler):
         rotation = int(self.request.get("rotation"))
         encrypted_message=caesar.encrypt(message, rotation)
         escaped_message = cgi.escape(encrypted_message)
-        content = build_page(encrypted_message)
+        content = build_page(escaped_message)
         self.response.write(content)
         
 app = webapp2.WSGIApplication([
